@@ -23,7 +23,7 @@ class item:
         self.minDamage=dice.roll_min(self.damage)
         self.maxDamage=dice.roll_max(self.damage)
         self.averageDamage=np.zeros(self.maxCA)
-        
+        self.plot=None
         
     def AverageDamage(self, armorClass):
         iterations=10000
@@ -45,15 +45,15 @@ class item:
         for i in range(self.maxCA):
             self.averageDamage[i]=self.AverageDamage(i)
         
-        plt.figure(figNum)
-        plt.plot(self.averageDamage)
+        self.plot=plt.plot(self.averageDamage, label=str(self.name))
         plt.xlabel('Enemy CA')
         plt.ylabel('Average Damage')
-        plt.show()
         
-    def CompareDmg(self,*args):
+    def CompareDmg(*args):
+        plt.figure()
         for i in range(len(args)):
-            args[i].PlotDamage(1)
-        
+            args[i].PlotDamage()
+        plt.legend()
+        plt.show()
         
             
